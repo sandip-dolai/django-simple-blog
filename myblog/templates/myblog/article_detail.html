@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %}
+Blog - Article
+{% endblock %}
+{% block content %}
+    <div class="card mt-4">
+        <div class="card-body">
+            <h1 class="card-title">{{ post.title }}</h1>
+            <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }}</h6>
+            <hr />
+            <p class="card-text">{{ post.body }}</p>
+            <a href="{% url 'home' %}" class="btn btn-secondary mt-3">Back To Home</a>
+        </div>
+    </div>
+{% endblock %}
