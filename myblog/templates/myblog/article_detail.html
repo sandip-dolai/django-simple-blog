@@ -1,16 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}
-{{ post.title_tag }}
+  {{ post.title_tag }}
 {% endblock %}
 {% block content %}
+  {% if user.is_authenticated %}
     <div class="card mt-4">
-        <div class="card-body">
-            <h1 class="card-title">{{ post.title }}</h1>
-            <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }}</h6>
-            <small>{{ post.created_at|date:'F j, Y, g:i a' }}</small>
-            <p class="card-text">{{ post.body }}</p>
-            <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-3">Back</a>
-            <a href="{% url 'update-post' post.pk %}" class="btn btn-outline-warning mt-3">edit</a>
-        </div>
+      <div class="card-body">
+        <h1 class="card-title">{{ post.title }}</h1>
+        <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }}</h6>
+        <small>{{ post.created_at|date:'F j, Y, g:i a' }}</small>
+        <p class="card-text">{{ post.body|safe }}</p>
+        <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-3">Back</a>
+        <a href="{% url 'update-post' post.pk %}" class="btn btn-outline-warning mt-3">edit</a>
+      </div>
     </div>
+  {% else %}
+    <h1>You don't have Permission</h1>
+  {% endif %}
 {% endblock %}

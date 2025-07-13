@@ -3,17 +3,21 @@
   Delete Blog
 {% endblock %}
 {% block content %}
-  <div class="card mt-4" style="width: 500px;">
-    <div class="card-header">
-      <h4 class="text-center">{{ post.title }}</h4>
+  {% if user.is_authenticated %}
+    <div class="card mt-4" style="width: 500px;">
+      <div class="card-header">
+        <h4 class="text-center">{{ post.title }}</h4>
+      </div>
+      <div class="card-body form-group">
+        <form method="POST">
+          {% csrf_token %}
+          <h5>Ary sure to delete it ?</h5>
+          <button class="btn btn-outline-danger">Delete</button>
+          <a href="{% url 'article-detail' post.pk %}" class="btn btn-outline-secondary">Cancel</a>
+        </form>
+      </div>
     </div>
-    <div class="card-body form-group">
-      <form method="POST">
-        {% csrf_token %}
-        <h5>Ary sure to delete it ?</h5>
-        <button class="btn btn-outline-danger">Delete</button>
-        <a href="{% url 'article-detail' post.pk %}" class="btn btn-outline-secondary">Cancel</a>
-      </form>
-    </div>
-  </div>
+  {% else %}
+    <h1>You don't have Permission</h1>
+  {% endif %}
 {% endblock %}

@@ -7,9 +7,29 @@
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link {% if request.resolver_match.url_name == 'add-post' %}active{% endif %}" aria-current="page" href="{% url 'add-post' %}">Add</a>
-        </li>
+        {% if user.is_authenticated %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'add-post' %}active{% endif %}" aria-current="page" href="{% url 'add-post' %}">Add</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'add-category' %}active{% endif %}" aria-current="page" href="{% url 'add-category' %}">Category</a>
+          </li>
+
+          <li class="nav-item">
+           <form action="{% url 'logout' %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="nav-link" >Logout</button>
+            </form>
+          </li>
+        {% else %}
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'register' %}active{% endif %}" aria-current="page" href="{% url 'register' %}">Sign Up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'login' %}active{% endif %}" aria-current="page" href="{% url 'login' %}">Login</a>
+          </li>
+        {% endif %}
       </ul>
     </div>
   </div>
