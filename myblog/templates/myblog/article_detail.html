@@ -3,18 +3,34 @@
   {{ post.title_tag }}
 {% endblock %}
 {% block content %}
-  {% if user.is_authenticated %}
-    <div class="card mt-4">
-      <div class="card-body">
-        <h1 class="card-title">{{ post.title }}</h1>
-        <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }}</h6>
-        <small>{{ post.created_at|date:'F j, Y, g:i a' }}</small>
-        <p class="card-text">{{ post.body|safe }}</p>
-        <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-3">Back</a>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h1 class="card-title">{{ post.title }}</h1>
+      <h6 class="card-subtitle mb-2 text-muted">By {{ post.author }}</h6>
+      <small>{{ post.created_at|date:'F j, Y, g:i a' }}</small>
+      <p class="card-text">{{ post.body|safe }}</p>
+      <a href="{% url 'home' %}" class="btn btn-outline-secondary mt-3">Back</a>
+      {% if user.is_authenticated and post.author.id == user.id %}
         <a href="{% url 'update-post' post.pk %}" class="btn btn-outline-warning mt-3">edit</a>
-      </div>
+      {% endif %}
+      <br />
+      <br />
+      {% if user.is_authenticated %}
+        <form action="{% url 'like-post' post.pk %}" method="post">
+          {% csrf_token %}
+          <button type="submit"
+            name="post_id"
+            value="{{ post.id }}"
+            class="btn {% if liked %}btn-primary{% else %}btn-outline-secondary{% endif %}">
+            {% if liked %}
+              <i class="fa-solid fa-heart"></i>
+            {% else %}
+              <i class="fa-solid fa-heart"></i>
+            {% endif %}
+          </button>
+          {{ post.number_of_likes }} likes
+        </form>
+      {% endif %}
     </div>
-  {% else %}
-    <h1>You don't have Permission</h1>
-  {% endif %}
+  </div>
 {% endblock %}

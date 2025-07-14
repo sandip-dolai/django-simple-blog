@@ -3,7 +3,7 @@
   Delete Blog
 {% endblock %}
 {% block content %}
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and post.author.id == user.id %}
     <div class="card mt-4" style="width: 500px;">
       <div class="card-header">
         <h4 class="text-center">{{ post.title }}</h4>

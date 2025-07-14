@@ -3,7 +3,7 @@
   Edit Blog
 {% endblock %}
 {% block content %}
-  {% if user.is_authenticated %}
+  {% if user.is_authenticated and post.author.id == user.id %}
     <div class="card mt-4" >
       <div class="card-header">
         <h4 class="text-center">Edit Blog</h4>

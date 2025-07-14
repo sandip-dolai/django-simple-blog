@@ -16,6 +16,9 @@
         </form>
       </div>
     </div>
+    <script>
+      document.getElementById('user_id').value = '{{ user.id }}';
+    </script>
   {% else %}
     <h1>You don't have Permission</h1>
   {% endif %}

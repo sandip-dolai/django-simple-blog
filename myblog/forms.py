@@ -1,5 +1,5 @@
 from django import forms  # type: ignore
-from .models import Post, Category
+from .models import Post, Category, User
 
 
 class PostForm(forms.ModelForm):
@@ -14,9 +14,17 @@ class PostForm(forms.ModelForm):
             "title": forms.TextInput(
                 attrs={"class": "form-control", "placeholder": "Title"}
             ),
-            "author": forms.Select(
-                attrs={"class": "form-control dropdown-toggle", "placeholder": "Author"}
+            "author": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Username",
+                    "id": "user_id",
+                    "type": "hidden",
+                }
             ),
+            # "author": forms.Select(
+            #     attrs={"class": "form-control dropdown-toggle", "placeholder": "Author"}
+            # ),
             "body": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Content"}
             ),

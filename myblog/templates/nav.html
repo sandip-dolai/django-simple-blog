@@ -7,6 +7,19 @@
         <li class="nav-item">
           <a class="nav-link {% if request.resolver_match.url_name == 'home' %}active{% endif %}" aria-current="page" href="{% url 'home' %}">Home</a>
         </li>
+        {% if cats_menu %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">Categories</a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              {% for cats in cats_menu %}
+                <li>
+                  <a class="dropdown-item" href="{% url 'category' cats|slugify %}">{{ cats.name }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endif %}
+
         {% if user.is_authenticated %}
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'add-post' %}active{% endif %}" aria-current="page" href="{% url 'add-post' %}">Add</a>
@@ -17,9 +30,9 @@
           </li>
 
           <li class="nav-item">
-           <form action="{% url 'logout' %}" method="post">
+            <form action="{% url 'logout' %}" method="post">
               {% csrf_token %}
-              <button type="submit" class="nav-link" >Logout</button>
+              <button type="submit" class="nav-link">Logout</button>
             </form>
           </li>
         {% else %}
