@@ -1,11 +1,11 @@
-from django import forms  # type: ignore
-from .models import Post, Category, User
+from django import forms
+from .models import Post, Category
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title_tag", "title", "author", "category", "body"]
+        fields = ["title_tag", "title", "author", "category", "body", "snippet"]
 
         widgets = {
             "title_tag": forms.TextInput(
@@ -22,11 +22,14 @@ class PostForm(forms.ModelForm):
                     "type": "hidden",
                 }
             ),
-            # "author": forms.Select(
-            #     attrs={"class": "form-control dropdown-toggle", "placeholder": "Author"}
-            # ),
             "body": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Content"}
+            ),
+            "snippet": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Snippet (optional)",
+                }
             ),
         }
 
@@ -41,7 +44,7 @@ class PostForm(forms.ModelForm):
 class EditForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ["title_tag", "title", "body"]
+        fields = ["title_tag", "title", "body", "snippet"]
 
         widgets = {
             "title_tag": forms.TextInput(
@@ -52,6 +55,12 @@ class EditForm(forms.ModelForm):
             ),
             "body": forms.Textarea(
                 attrs={"class": "form-control", "placeholder": "Content"}
+            ),
+            "snippet": forms.Textarea(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": "Snippet (optional)",
+                }
             ),
         }
 

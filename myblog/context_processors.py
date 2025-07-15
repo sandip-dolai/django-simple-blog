@@ -1,4 +1,4 @@
-from .models import Category, Post, User
+from .models import Category
 
 
 def cats_menu(request):

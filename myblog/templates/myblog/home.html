@@ -16,7 +16,8 @@
             </div>
           </div>
           <h5 class="card-title"><a href="{% url 'article-detail' post.pk %}" class="text-decoration-none">{{ post.title }}</a></h5>
-          <p class="card-text">{{ post.body|slice:200|safe }}</p>
+          {% comment %} <p class="card-text">{{ post.body|slice:200|safe }}</p> {% endcomment %}
+          <p class="card-text">{{ post.snippet|slice:200|safe }}</p>
           <button disabled class="btn btn-primary">{{ post.number_of_likes }} likes</button>
           {% if user.is_authenticated and post.author.id == user.id %}
             <a href="{% url 'update-post' post.pk %}?next={{ request.path|urlencode }}" class="btn btn-outline-primary btn-sm">Edit</a>
